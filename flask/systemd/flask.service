@@ -1,0 +1,13 @@
+[Unit]
+Description=Python Flask server
+Requires=
+After=
+
+[Service]
+PIDFile=/var/run/flask.pid
+ExecStartPre=/bin/rm -f /var/run/flask.pid
+ExecStart=$POOL_HOME/flask/runflask 
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
