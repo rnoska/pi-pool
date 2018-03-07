@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+  </head>
+  <body>
+    <h1>Pool Control</h1>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+
+<script>
+$(document).ready(function(){
+    $("#btn_skimmer").click(function(){
+        <!-- todo: make ip configurable -->
+ 	    $.post("http://192.168.1.208:5000/skimmer", function(data, status){
+	    });
+    });
+    $("#btn_vacuum").click(function(){
+ 	    $.post("http://192.168.1.208:5000/vacuum", function(data, status){
+	    });
+    });
+
+    $("#btn_func_clean").click(function(){
+ 	    $.post("http://192.168.1.208:5000/function-filter", function(data, status){
+	    });
+    });
+    $("#btn_func_waterfall").click(function(){
+ 	    $.post("http://192.168.1.208:5000/function-waterfall", function(data, status){
+	    });
+    });
+
+
+    $("#btn_filter_manual_on").click(function(){
+ 	    $.post("http://192.168.1.208:5000/filtervalveon", function(data, status){
+	    });
+    });
+
+	$("#btn_filter_manual_off").click(function(){
+	    $.post("http://192.168.1.208:5000/filtervalveoff", function(data, status){
+	    });
+	});
+	
+	
+	$("#btn_light0on").click(function(){
+	    $.post("http://192.168.1.208:5000/light0-on", function(data, status){
+	    });
+	});
+	
+	$("#btn_light0off").click(function(){
+	    $.post("http://192.168.1.208:5000/light0-off", function(data, status){
+	    });
+	});
+	$("#btn_light1on").click(function(){
+	    $.post("http://192.168.1.208:5000/light1-on", function(data, status){
+	    });
+	});
+	
+	$("#btn_light1off").click(function(){
+	    $.post("http://192.168.1.208:5000/light1-off", function(data, status){
+	    });
+	});
+	$("#btn_light2on").click(function(){
+	    $.post("http://192.168.1.208:5000/light2-on", function(data, status){
+	    });
+	});
+	
+	$("#btn_light2off").click(function(){
+	    $.post("http://192.168.1.208:5000/light2-off", function(data, status){
+	    });
+	});
+
+	$("#btn_lightallon").click(function(){
+	    $.post("http://192.168.1.208:5000/lightall-on", function(data, status){
+	    });
+	});
+	
+	$("#btn_lightalloff").click(function(){
+	    $.post("http://192.168.1.208:5000/lightall-off", function(data, status){
+	    });
+	});
+	
+});
+
+</script>
+	<div class="alert alert-primary" role="alert">
+	  Function<br><br>
+	  <button type="button" class="btn btn-outline-primary" id="btn_func_clean">Clean (Filter)</button>
+	  <button type="button" class="btn btn-outline-primary" id="btn_func_waterfall">Waterfall</button>
+	</div>
+
+	<div class="alert alert-primary" role="alert">
+	  Filter Suction Valve<br><br>
+	  <button type="button" class="btn btn-outline-primary" id="btn_skimmer">Skimmer</button>
+	  <button type="button" class="btn btn-outline-primary" id="btn_vacuum">Vacuum</button>
+	  <button type="button" class="btn btn-outline-primary" id="btn_filter_manual_on">Manual ON</button>
+	  <button type="button" class="btn btn-outline-primary" id="btn_filter_manual_off">Manual OFF</button>
+	</div>
+
+	<div class="alert alert-primary" role="alert">
+	  Lights<br><br>
+	  <button type="button" class="btn btn-outline-primary" id="btn_lightallon">All on</button>
+	  <button type="button" class="btn btn-outline-primary" id="btn_lightalloff">All off</button>	  
+	</div>
+
+  </body>
+</html>
