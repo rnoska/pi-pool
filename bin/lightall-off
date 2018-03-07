@@ -1,0 +1,4 @@
+#!/bin/bash
+x10serial A03
+x10serial A13
+x10serial A23
