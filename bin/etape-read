@@ -1,0 +1,23 @@
+#!/usr/bin/python3
+import serial
+import time
+from serial import SerialException
+from serial import SerialTimeoutException
+
+ser=None
+val=""
+try:
+  ser=serial.Serial('/dev/ttyUSB0',baudrate=57600,timeout=2)
+  time.sleep(2)
+  ser.write(b'0')
+  val=ser.readline().decode()
+except SerialException as e:
+#except as e:
+  print('exception:',e)
+else:
+  level=val.split(sep=';')[1].split(sep=',')[2].split(sep='=')[1]
+  print(level)
+finally:
+  if ser:
+    #print('closing connection')
+    ser.close()
