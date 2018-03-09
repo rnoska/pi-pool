@@ -1,6 +1,6 @@
 Pool automation control prototype
 
-!(doc/images/about.jpg)
+![](doc/images/about.jpg)
 
 
 ```
