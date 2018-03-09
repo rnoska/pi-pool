@@ -1,5 +1,11 @@
 Pool automation control prototype
 
+![](doc/images/about.jpg)
+<p align="center">
+  <img src="doc/images/about.jpg" width="50" title="Github Logo">
+</p>
+
+
 ```
 Raspberry PI 3
 | 
