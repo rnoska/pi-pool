@@ -1,6 +1,9 @@
 Pool automation control prototype
 
 ![](doc/images/about.jpg)
+<p align="center">
+  <img src="doc/images/about.jpg" size="40%" title="Github Logo">
+</p>
 
 
 ```
