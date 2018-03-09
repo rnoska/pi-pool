@@ -1,5 +1,8 @@
 Pool automation control prototype
 
+!(doc/images/about.jpg)
+
+
 ```
 Raspberry PI 3
 | 
