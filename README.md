@@ -1,10 +1,13 @@
-Pool automation control prototype
+## Pool automation control prototype
 
-![](doc/images/about.jpg)
+This will operate x10 lighting, read water level, perform auto fill, and actuate valves as needed for cleaning or operating my waterfall.  For now automation is achieved via cron tasks and some operations are available via the ui.  I would like to add chlorene level detection, a driver for a variable speed pump, and a panel display/buttons at some point. 
+
+<!--![](doc/images/about.jpg)-->
 <p align="center">
   <img src="doc/images/about.jpg" width="40%" title="Github Logo">
 </p>
 
+## Basic components 
 
 ```
 Raspberry PI 3
