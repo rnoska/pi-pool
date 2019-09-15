@@ -11,12 +11,13 @@ import poollib as poollib
 import hwlib as hwlib
 app = Flask(__name__)
 
-# Send http header telling the browser to allow cross domain scripting
-#   Code complements of: http://flask.pocoo.org/snippets/56/
-#
+
 def crossdomain(origin=None, methods=None, headers=None,
                 max_age=21600, attach_to_all=True,
                 automatic_options=True):
+    '''Send http header telling the browser to allow cross domain scripting
+        Code complements of: http://flask.pocoo.org/snippets/56/
+    '''
     if methods is not None:
         methods = ', '.join(sorted(x.upper() for x in methods))
     if headers is not None and not isinstance(headers, basestring):
@@ -60,126 +61,135 @@ def crossdomain(origin=None, methods=None, headers=None,
 def hello_world():
     return 'Hello, World!'
 
-@app.route('/health',methods=['GET', 'OPTIONS'])
-@crossdomain(origin='*')    
+
+@app.route('/health', methods=['GET', 'OPTIONS'])
+@crossdomain(origin='*')
 def health():
-    s = hwlib.getCpuTemp();
+    s = hwlib.getCpuTemp()
     return 'CPU Temp is ' + str(s)
 
-# Rotate filter valve to vacuum
-#
-@app.route('/vacuum',methods=['POST', 'OPTIONS'])
-@crossdomain(origin='*')    
+
+@app.route('/vacuum', methods=['POST', 'OPTIONS'])
+@crossdomain(origin='*')
 def filter_valve_to_vacuum():
+    ''' Rotate filter valve to vacuum
+    '''
     poollib.filter_valve_to_vacuum()
     return 'rotating to vacuum'
 
-# Rotate filter valve to skimmer
-#    
-@app.route('/skimmer',methods=['POST', 'OPTIONS'])
-@crossdomain(origin='*')    
+
+@app.route('/skimmer', methods=['POST', 'OPTIONS'])
+@crossdomain(origin='*')
 def filter_valve_to_skimmer():
+    ''' Rotate filter valve to skimmer
+    '''
     poollib.filter_valve_to_skimmer()
     return 'rotating to skimmer'
 
-# Rotate function valve to clean/filter
-#
-@app.route('/function-filter',methods=['POST', 'OPTIONS'])
-@crossdomain(origin='*')    
+
+@app.route('/function-filter', methods=['POST', 'OPTIONS'])
+@crossdomain(origin='*')
 def function_valve_to_filter():
+    ''' Rotate function valve to clean/filter
+    '''
     poollib.function_valve_to_filter()
     return 'rotating function valve to filter'
 
-# Rotate function valve to waterfall
-#    
-@app.route('/function-waterfall',methods=['POST', 'OPTIONS'])
-@crossdomain(origin='*')    
+
+@app.route('/function-waterfall', methods=['POST', 'OPTIONS'])
+@crossdomain(origin='*')
 def function_valve_to_waterfall():
+    ''' Rotate function valve to waterfall
+    '''
     poollib.function_valve_to_waterfall()
     return 'rotating function valve to waterfall'
 
 
-# Enable manual operation
-#
-@app.route('/filtervalveon',methods=['POST', 'OPTIONS'])
-@crossdomain(origin='*')    
+@app.route('/filtervalveon', methods=['POST', 'OPTIONS'])
+@crossdomain(origin='*')
 def filter_valve_on():
+    ''' Enable manual operation
+    '''
     poollib.filter_valve_on()
     return 'rotating to vacuum'
-    
-# Disable manual operation
-#
-@app.route('/filtervalveoff',methods=['POST', 'OPTIONS'])
-@crossdomain(origin='*')    
+
+
+@app.route('/filtervalveoff', methods=['POST', 'OPTIONS'])
+@crossdomain(origin='*')
 def filter_valve_off():
+    ''' Disable manual operation
+    '''
     poollib.filter_valve_off()
     return 'rotating to skimmer'
 
-################################### Lighting ###############################
 
-# Light 0 on
-#
-@app.route('/light0-on',methods=['POST', 'OPTIONS'])
-@crossdomain(origin='*')    
+@app.route('/light0-on', methods=['POST', 'OPTIONS'])
+@crossdomain(origin='*')
 def light0_on():
+    ''' Light 0 on
+    '''
     subprocess.check_output(["light0-on"], stderr=subprocess.STDOUT)
     return 'light 0 on'
 
-# Light 0 off
-#
-@app.route('/light0-off',methods=['POST', 'OPTIONS'])
-@crossdomain(origin='*')    
+
+@app.route('/light0-off', methods=['POST', 'OPTIONS'])
+@crossdomain(origin='*')
 def light0_off():
+    ''' Light 0 off
+    '''
     subprocess.check_output(["light0-off"], stderr=subprocess.STDOUT)
     return 'light 0 off'
 
-# Light 1 on
-#
-@app.route('/light1-on',methods=['POST', 'OPTIONS'])
-@crossdomain(origin='*')    
+
+@app.route('/light1-on', methods=['POST', 'OPTIONS'])
+@crossdomain(origin='*')
 def light1_on():
+    ''' Light 1 on
+    '''
     subprocess.check_output(["light1-on"], stderr=subprocess.STDOUT)
     return 'light 1 on'
 
-# Light 1 off
-#
-@app.route('/light1-off',methods=['POST', 'OPTIONS'])
-@crossdomain(origin='*')    
+
+@app.route('/light1-off', methods=['POST', 'OPTIONS'])
+@crossdomain(origin='*')
 def light1_off():
+    ''' Light 1 off
+    '''
     subprocess.check_output(["light1-off"], stderr=subprocess.STDOUT)
     return 'light 1 off'
-    
-# Light 2 on
-#
-@app.route('/light2-on',methods=['POST', 'OPTIONS'])
-@crossdomain(origin='*')    
+
+
+@app.route('/light2-on', methods=['POST', 'OPTIONS'])
+@crossdomain(origin='*')
 def light2_on():
+    ''' Light 2 on
+    '''
     subprocess.check_output(["light2-on"], stderr=subprocess.STDOUT)
     return 'light 2 on'
 
-# Light 2 off
-#
-@app.route('/light2-off',methods=['POST', 'OPTIONS'])
-@crossdomain(origin='*')    
+
+@app.route('/light2-off', methods=['POST', 'OPTIONS'])
+@crossdomain(origin='*')
 def light2_off():
+    ''' Light 2 off
+    '''
     subprocess.check_output(["light2-off"], stderr=subprocess.STDOUT)
     return 'light 2 off'
-    
-# Light all on
-#
-@app.route('/lightall-on',methods=['POST', 'OPTIONS'])
-@crossdomain(origin='*')    
+
+
+@app.route('/lightall-on', methods=['POST', 'OPTIONS'])
+@crossdomain(origin='*')
 def lightall_on():
+    ''' Light all on
+    '''
     poollib.lightall_on()
     return 'light all on'
 
-# Light all off
-#
-@app.route('/lightall-off',methods=['POST', 'OPTIONS'])
-@crossdomain(origin='*')    
+
+@app.route('/lightall-off', methods=['POST', 'OPTIONS'])
+@crossdomain(origin='*')
 def lightall_off():
+    ''' Light all off
+    '''
     poollib.lightall_off()
     return 'light all off'
-    
-    
-    
