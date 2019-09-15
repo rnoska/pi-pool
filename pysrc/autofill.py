@@ -14,8 +14,8 @@ class AutoFillExec:
     #maxFillTimeSecs=15
     
     fillCheckInterval=5000          # During filling check measured level at this interval in ms
-    minLevelAsMeasured=580          # Minimum eTape reading (fill at or below this level)
-    maxLevelAsMeasured=630          # Maximum etape reading (fill stops at or above this level)
+    minLevelAsMeasured=515          # Minimum eTape reading (fill at or below this level)
+    maxLevelAsMeasured=590          # Maximum etape reading (fill stops at or above this level)
     
     fillValveOn=False               # Track the state of the fill valve
     
