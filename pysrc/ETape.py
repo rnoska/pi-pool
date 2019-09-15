@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 import serial
 import time
 import logging
@@ -16,35 +17,49 @@ class ETape():
         if bdRate is not None:
             self.bdRate = bdRate
             
+    def read(self):
         try:
             self.logger.info("devName=",self.devName)
             self.devSerial=serial.Serial(self.devName,baudrate=self.bdRate,timeout=2)
-            time.sleep(2)
         except Exception as ex:
             self.devSerial=None
             raise
-    
-    def read(self):
-        assert(self.devSerial)
-        try:
+
+        etapeResultStr=None 
+        while True:
+          try:
             self.devSerial.write(b'0')
+            time.sleep(2)
             etapeBytes=self.devSerial.readline()
             if etapeBytes is None:
-                raise Exception('no data received from ETape on ' + self.devName)
-            
+              print('No data received from ETape on {}.  Trying again.'.format(self.devName))
+              continue
             etapeResultStr=etapeBytes.decode()
-            print(etapeResultStr)
-            levelStr=etapeResultStr.split(sep=';')[1].split(sep=',')[2].split(sep='=')[1]
-            levelReadingInt=int(levelStr)    
-            return levelReadingInt
-        
-        except Exception as ex:
-            self.devSerial=None
-            raise
+            if etapeResultStr:
+              print("ETape.read() got back {}".format(etapeResultStr))
+              break
+            else:
+              print("ETape.read() got back empty string.  Trying again.")
+          except BlockingIOError as ex:
+            self.logger.error('Caught BlockingIOError %s. Trying again.'%str(ex))
+          except Exception as ex:
+            self.logger.error('Caught Exception %s. Trying again.'%str(ex))
+
+        #levelStr=etapeResultStr.split(sep=';')[1].split(sep=',')[2].split(sep='=')[1]
+        levelStr=etapeResultStr.split(';')[1].split(',')[2].split('=')[1]
+        levelReadingInt=int(levelStr)    
+        self.close()
+        return levelReadingInt
         
     def close(self):
-        
         if self.devSerial:
             self.devSerial.close()
             self.devSerial=None
         
+def main():
+  et=ETape()
+  et.read()
+
+if __name__ == "__main__":
+  main()
+
