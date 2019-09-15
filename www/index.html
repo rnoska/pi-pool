@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+
+
 <html lang="en">
   <head>
     <!-- Required meta tags -->
@@ -20,7 +22,6 @@
 <script>
 $(document).ready(function(){
     $("#btn_skimmer").click(function(){
-        <!-- todo: make ip configurable -->
  	    $.post("http://192.168.1.208:5000/skimmer", function(data, status){
 	    });
     });
@@ -49,35 +50,6 @@ $(document).ready(function(){
 	    });
 	});
 	
-	
-	$("#btn_light0on").click(function(){
-	    $.post("http://192.168.1.208:5000/light0-on", function(data, status){
-	    });
-	});
-	
-	$("#btn_light0off").click(function(){
-	    $.post("http://192.168.1.208:5000/light0-off", function(data, status){
-	    });
-	});
-	$("#btn_light1on").click(function(){
-	    $.post("http://192.168.1.208:5000/light1-on", function(data, status){
-	    });
-	});
-	
-	$("#btn_light1off").click(function(){
-	    $.post("http://192.168.1.208:5000/light1-off", function(data, status){
-	    });
-	});
-	$("#btn_light2on").click(function(){
-	    $.post("http://192.168.1.208:5000/light2-on", function(data, status){
-	    });
-	});
-	
-	$("#btn_light2off").click(function(){
-	    $.post("http://192.168.1.208:5000/light2-off", function(data, status){
-	    });
-	});
-
 	$("#btn_lightallon").click(function(){
 	    $.post("http://192.168.1.208:5000/lightall-on", function(data, status){
 	    });
@@ -95,6 +67,7 @@ $(document).ready(function(){
 	  Function<br><br>
 	  <button type="button" class="btn btn-outline-primary" id="btn_func_clean">Clean (Filter)</button>
 	  <button type="button" class="btn btn-outline-primary" id="btn_func_waterfall">Waterfall</button>
+
 	</div>
 
 	<div class="alert alert-primary" role="alert">
@@ -103,12 +76,13 @@ $(document).ready(function(){
 	  <button type="button" class="btn btn-outline-primary" id="btn_vacuum">Vacuum</button>
 	  <button type="button" class="btn btn-outline-primary" id="btn_filter_manual_on">Manual ON</button>
 	  <button type="button" class="btn btn-outline-primary" id="btn_filter_manual_off">Manual OFF</button>
+
 	</div>
 
 	<div class="alert alert-primary" role="alert">
 	  Lights<br><br>
 	  <button type="button" class="btn btn-outline-primary" id="btn_lightallon">All on</button>
-	  <button type="button" class="btn btn-outline-primary" id="btn_lightalloff">All off</button>	  
+	  <button type="button" class="btn btn-outline-primary" id="btn_lightalloff">All off</button>
 	</div>
 
   </body>
