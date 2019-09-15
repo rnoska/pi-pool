@@ -12,33 +12,35 @@ power=22	# Pi GPIO transformer port
 x10power=10	# x10 power line module
 waterfall=5	# Pi GPIO waterfall valve
 filter=6	# Pi GPIO filter valve
+fill=13    # Pi GPIO water filler valve
 
 skimmer_name="Skimmer"
 vacuum_name="Vacuum"
 power_name="24VAC_transformer"
+water_name="Fill"
 
 # Turn on 24V AC valve actuator transformer
 #
 def powerOn():
-  print "24VAC_xformer;func=power:state=on"
+  print("24VAC_xformer;func=power:state=on")
   GPIO.output(power,GPIO.HIGH)
 
 # Turn off 24VAC valve actuator transformer
 #
 def powerOff():
-  print "24VAC_xformer;func=power:state=off"
+  print("24VAC_xformer;func=power:state=off")
   GPIO.output(power,GPIO.LOW)
 
 # Turn on 24V AC valve actuator transformer
 #
 def x10PowerOn():
-  print "x10PowerLineModule;func=power:state=on"
+  print("x10PowerLineModule;func=power:state=on")
   GPIO.output(x10power,GPIO.HIGH)
 
 # Turn off 24VAC valve actuator transformer
 #
 def x10PowerOff():
-  print "x10PowerLineModule;func=power:state=off"
+  print("x10PowerLineModule;func=power:state=off")
   GPIO.output(x10power,GPIO.LOW)
 
 
@@ -150,7 +152,7 @@ def lightall_on():
    initializeAll()
    x10PowerOn()
    time.sleep(2)
-   subprocess.check_output(["lightall-on"], stderr=subprocess.STDOUT)
+   subprocess.check_output(["/root/rnoska/pool/lightall-on"], stderr=subprocess.STDOUT)
    time.sleep(2)
    x10PowerOff()
    cleanupAll()
@@ -159,7 +161,7 @@ def lightall_off():
    initializeAll()
    x10PowerOn()
    time.sleep(2)
-   subprocess.check_output(["lightall-off"], stderr=subprocess.STDOUT)
+   subprocess.check_output(["/root/rnoska/pool/lightall-off"], stderr=subprocess.STDOUT)
    time.sleep(2)
    x10PowerOff()
    cleanupAll()
@@ -176,12 +178,34 @@ def initializeAll():
   GPIO.setup(x10power,GPIO.OUT)
   GPIO.setup(waterfall,GPIO.OUT)
   GPIO.setup(filter,GPIO.OUT)
+  GPIO.setup(fill,GPIO.OUT)
   stopRotateAll()
   
 # Called to cleanup Pi GPIO state
 # 
 def cleanupAll():
   GPIO.cleanup()
+  
+def fill_valve_on():
+    try:
+        initializeAll()
+        powerOn()
+        _logFillOn()
+        GPIO.output(fill,GPIO.HIGH)
+    except KeyboardInterrupt:
+        print("SIGINT")
+   
+def fill_valve_off():
+    try:
+        initializeAll()
+    except KeyboardInterrupt:
+        print("SIGINT")
+    finally:
+        GPIO.output(fill,GPIO.LOW)
+        _logFillOff()
+        powerOff()
+        cleanupAll()
+    
 
 # Rotate the function valve to waterfall
 def function_valve_to_waterfall():
@@ -192,7 +216,7 @@ def function_valve_to_waterfall():
 		GPIO.output(waterfall,GPIO.HIGH)
 		time.sleep(36)
 	except KeyboardInterrupt:
-		print "SIGINT"
+		print("SIGINT")
 	finally:
 		_logValveOff('waterfall')
 		GPIO.output(waterfall,GPIO.LOW)
@@ -208,7 +232,7 @@ def function_valve_to_filter():
 		GPIO.output(filter,GPIO.HIGH)
 		time.sleep(36)
 	except KeyboardInterrupt:
-		print "SIGINT"
+		print("SIGINT")
 	finally:
 		_logValveOff('filter')
 		GPIO.output(filter,GPIO.LOW)
@@ -222,7 +246,7 @@ def testWf():
 		GPIO.output(waterfall,GPIO.HIGH)
 		time.sleep(36)
 	except KeyboardInterrupt:
-		print "SIGINT"
+		print("SIGINT")
 	finally:
 		_logValveOff('waterfall')
 		GPIO.output(waterfall,GPIO.LOW)
@@ -235,7 +259,7 @@ def testFilter():
 		GPIO.output(filter,GPIO.HIGH)
 		time.sleep(36)
 	except KeyboardInterrupt:
-		print "SIGINT"
+		print("SIGINT")
 	finally:
 		_logValveOff('filter')
 		GPIO.output(filter,GPIO.LOW)
@@ -244,6 +268,10 @@ def testFilter():
 def _dt():
 	return str(datetime.now())
 def _logValveOn( name ):
-	print "["+_dt()+"]control=valve:name="+name+":func=rotate:state=on"
+	print("["+_dt()+"]control=valve:name="+name+":func=rotate:state=on")
 def _logValveOff( name ):
-	print "["+_dt()+"]control=valve:name="+name+":func=rotate:state=off"
+	print("["+_dt()+"]control=valve:name="+name+":func=rotate:state=off")
+def _logFillOn( ):
+    print("["+_dt()+"]control=fill:state=on")
+def _logFillOff( ):
+    print("["+_dt()+"]control=fill:state=off")
