@@ -21,6 +21,10 @@
 # 
 # m h  dom mon dow   command
 
+# Autofill
+# 0200 Sun - run auto fill
+0 2 * * 0 /usr/local/bin/autofill.py >> /var/log/pool/autofill.log 2>&1
+
 # AM cleaning cycle; pump from the vacuum suction to the filter
 0 0 * * * /usr/local/bin/valve-function-filter.py
 0 9 * * * /usr/local/bin/valve-clean-vacuum.py
