@@ -1,7 +1,7 @@
 
 
-#include <x10.h>
-#include <x10constants.h>
+#include "x10.h"
+#include "x10constants.h"
 
 //#define DEBUG
 #define X10SEND
